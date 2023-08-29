@@ -36,7 +36,7 @@ export const FormContainer = styled.form`
   margin: 10px;
   width: 50%;
 `
-export const Heading = styled.h1`
+export const Heading = styled.p`
   font-size: ${props => {
     const {fontSize} = props
     console.log(fontSize)

@@ -106,13 +106,11 @@ class MemeGenerator extends Component {
             ))}
           </select>
 
-          <button type="submit" data-testid="meme">
-            Generate
-          </button>
+          <button type="submit">Generate</button>
         </FormContainer>
         {/* </form> */}
         {/* <div> */}
-        <Container backgroundImage={image}>
+        <Container backgroundImage={image} data-testid="meme">
           <Heading fontSize={font}>{top}</Heading>
           <Heading fontSize={font}>{bottom}</Heading>
         </Container>
