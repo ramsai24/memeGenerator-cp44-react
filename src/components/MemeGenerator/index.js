@@ -1,5 +1,10 @@
 import {Component} from 'react'
-import {Container, Heading} from './styledComponents'
+import {
+  Container,
+  Heading,
+  MainContainer,
+  FormContainer,
+} from './styledComponents'
 
 const fontSizesOptionsList = [
   {
@@ -39,6 +44,10 @@ class MemeGenerator extends Component {
     topText: '',
     bottomText: '',
     fontSize: fontSizesOptionsList[0].displayText,
+    top: '',
+    bottom: '',
+    font: fontSizesOptionsList[0].displayText,
+    image: '',
   }
 
   updateImageUrl = event => this.setState({imageUrl: event.target.value})
@@ -49,27 +58,49 @@ class MemeGenerator extends Component {
 
   updateFontSize = event => this.setState({fontSize: event.target.value})
 
+  //   elementsCall = () => {
+  //     const {imageUrl, topText, bottomText, fontSize} = this.state
+  //     return (
+  //       <div>
+  //         <Container backgroundImage={imageUrl}>
+  //           <Heading fontSize={fontSize}>{topText}</Heading>
+  //           <Heading fontSize={fontSize}>{bottomText}</Heading>
+  //         </Container>
+  //       </div>
+  //     )
+  //   }
+
   onSubmitForm = event => {
     event.preventDefault()
+    // this.elementsCall()
+    const {imageUrl, topText, bottomText, fontSize} = this.state
+    console.log(imageUrl, topText, bottomText, fontSize)
+    this.setState({
+      image: imageUrl,
+      top: topText,
+      bottom: bottomText,
+      font: fontSize,
+    })
   }
 
   render() {
-    const {imageUrl, topText, bottomText, fontSize} = this.state
-    console.log(topText, bottomText)
+    const {image, font, top, bottom} = this.state
     return (
-      <div>
-        <form onSubmit={this.onSubmitForm}>
+      <MainContainer>
+        {/* <form> */}
+        <FormContainer onSubmit={this.onSubmitForm}>
+          <h1>Meme Generator</h1>
           <label htmlFor="imageUrl">Image URL</label>
-          <input type="text" id="imageUrl" onClick={this.updateImageUrl} />
+          <input type="text" id="imageUrl" onChange={this.updateImageUrl} />
 
           <label htmlFor="topText">Top Text</label>
-          <input type="text" id="topText" onClick={this.updateTopText} />
+          <input type="text" id="topText" onChange={this.updateTopText} />
 
           <label htmlFor="bottomText">Bottom Text</label>
-          <input type="text" id="bottomText" onClick={this.updateBottomText} />
+          <input type="text" id="bottomText" onChange={this.updateBottomText} />
 
           <label htmlFor="fontSize">Font Size</label>
-          <select id="fontSize" onClick={this.updateFontSize}>
+          <select id="fontSize" onChange={this.updateFontSize}>
             {fontSizesOptionsList.map(each => (
               <option key={each.optionId}>{each.displayText}</option>
             ))}
@@ -78,15 +109,15 @@ class MemeGenerator extends Component {
           <button type="submit" data-testid="meme">
             Generate
           </button>
-        </form>
-
-        <div>
-          <Container backgroundImage={imageUrl}>
-            <Heading fontSize={fontSize}>{topText}</Heading>
-            <Heading fontSize={fontSize}>{bottomText}</Heading>
-          </Container>
-        </div>
-      </div>
+        </FormContainer>
+        {/* </form> */}
+        {/* <div> */}
+        <Container backgroundImage={image}>
+          <Heading fontSize={font}>{top}</Heading>
+          <Heading fontSize={font}>{bottom}</Heading>
+        </Container>
+        {/* </div> */}
+      </MainContainer>
     )
   }
 }
